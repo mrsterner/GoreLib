@@ -16,7 +16,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-          "dev.sterner.gorelib.GoreLib"
+			"dev.sterner.gorelib.GoreLib"
+		],
+		"client": [
+			"dev.sterner.gorelib.GoreLib"
 		],
 		"fabric-datagen": [
 			"dev.sterner.gorelib.GoreLibDataGenerator"

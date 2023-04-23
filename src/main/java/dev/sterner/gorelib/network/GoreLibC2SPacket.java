@@ -111,5 +111,10 @@ public class GoreLibC2SPacket {
             return this;
         }
 
+        public Builder writeFullEntityNbt(){
+            this.packet.writeFullEntityNbt = true;
+            return this;
+        }
+
     }
 }
