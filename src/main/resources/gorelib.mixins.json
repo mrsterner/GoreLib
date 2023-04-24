@@ -1,17 +1,18 @@
 {
-	"required": true,
-	"package": "dev.sterner.gorelib.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"plugin": "dev.sterner.gorelib.mixin.plugin.GoreLibPlugin",
-	"mixins": [
-		"BlockEntityMixin",
-		"EntityMixin",
-		"LivingEntityMixin",
-		"MobEntityMixin",
-		"ServerPlayerMixin",
-		"UpdateAttackTargetTaskMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "dev.sterner.gorelib.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "plugin": "dev.sterner.gorelib.mixin.plugin.GoreLibPlugin",
+  "mixins": [
+    "BlockEntityMixin",
+    "EntityMixin",
+    "LivingEntityMixin",
+    "MobEntityMixin",
+    "ServerPlayerMixin",
+    "UpdateAttackTargetTaskMixin",
+    "WorldChunkMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }

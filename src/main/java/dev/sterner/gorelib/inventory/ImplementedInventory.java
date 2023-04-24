@@ -1,4 +1,4 @@
-package dev.sterner.gorelib.util;
+package dev.sterner.gorelib.inventory;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
