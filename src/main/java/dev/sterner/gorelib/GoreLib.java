@@ -31,18 +31,6 @@ public class GoreLib implements ModInitializer, ClientModInitializer {
     public void onInitialize() {
         GoreLibDataTrackerRegistry.init();
         GoreLibBlockEntityRegistry.init();
-
-        LivingEntityDropEvent.SHOULD_DROP_ON_DEATH.register(this::text);
-    }
-
-    private boolean text(LivingEntity livingEntity, DamageSource damageSource, Collection<ItemEntity> drops, int i, boolean b) {
-        if (livingEntity instanceof ServerPlayerEntity playerEntity) {
-
-
-            drops.clear();
-
-        }
-        return true;
     }
 
     @Override
