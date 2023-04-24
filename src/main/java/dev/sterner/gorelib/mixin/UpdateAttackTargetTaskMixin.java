@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(UpdateAttackTargetTask.class)
-public class UpdateAttackTargetTaskMixin{
+public class UpdateAttackTargetTaskMixin {
 
     @Inject(method = "updateAttackTarget", at = @At("TAIL"))
     private static <E extends MobEntity> void gore_lib$updateAttackTarget(E mob, LivingEntity livingEntity, CallbackInfo ci) {

@@ -13,10 +13,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MobEntity.class)
 public class MobEntityMixin {
 
-    @Shadow @Nullable private LivingEntity target;
+    @Shadow
+    @Nullable
+    private LivingEntity target;
 
     @Inject(method = "setTarget", at = @At("HEAD"))
-    private void gore_lib$setTarget(LivingEntity target, CallbackInfo ci){
+    private void gore_lib$setTarget(LivingEntity target, CallbackInfo ci) {
         MobEntity mobEntity = MobEntity.class.cast(this);
         LivingEntity newTarget = LivingEntityTargetingEvent.CHANGE_TARGET.invoker().onChangeTarget(mobEntity, target);
         this.target = newTarget;

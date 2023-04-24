@@ -15,9 +15,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-
 public interface GoreLibBlockEntityRegistry {
-    Map<Identifier, BlockEntityType<?>> BLOCK_ENTITY_TYPES  = new LinkedHashMap<>();
+    Map<Identifier, BlockEntityType<?>> BLOCK_ENTITY_TYPES = new LinkedHashMap<>();
 
     BlockEntityType<MultiBlockComponentBlockEntity> MULTIBLOCK_COMPONENT = register("multiblock_component", BlockEntityType.Builder.create(MultiBlockComponentBlockEntity::new, getBlocks(IGoreLibMultiBlockComponent.class)).build(null));
 

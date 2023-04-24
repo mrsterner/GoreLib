@@ -34,7 +34,7 @@ public class MultiBlockComponentBlockEntity extends GoreLibBlockEntity {
 
     @Override
     public void readNbt(NbtCompound nbt) {
-        corePos = nbt.contains("CoreX") ? new BlockPos(nbt.getInt("CoreX"),nbt.getInt("CoreY"),nbt.getInt("CoreZ")) : null;
+        corePos = nbt.contains("CoreX") ? new BlockPos(nbt.getInt("CoreX"), nbt.getInt("CoreY"), nbt.getInt("CoreZ")) : null;
         super.readNbt(nbt);
     }
 

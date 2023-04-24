@@ -1,24 +1,14 @@
 package dev.sterner.gorelib;
 
-import dev.sterner.gorelib.event.LivingEntityDropEvent;
-import dev.sterner.gorelib.network.GoreLibC2SPacket;
 import dev.sterner.gorelib.registry.GoreLibBlockEntityRegistry;
 import dev.sterner.gorelib.registry.GoreLibDataTrackerRegistry;
 import dev.sterner.gorelib.registry.GoreLibParticleTypes;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
-
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collection;
 
 public class GoreLib implements ModInitializer, ClientModInitializer {
     private static final String MODID = "gorelib";

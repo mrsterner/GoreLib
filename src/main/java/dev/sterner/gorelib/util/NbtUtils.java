@@ -11,7 +11,7 @@ public class NbtUtils {
 
     public static NbtCompound fromVec3d(Vec3d pos) {
         NbtCompound nbtCompound = new NbtCompound();
-        if(pos != null){
+        if (pos != null) {
             nbtCompound.putDouble("X", pos.getX());
             nbtCompound.putDouble("Y", pos.getY());
             nbtCompound.putDouble("Z", pos.getZ());

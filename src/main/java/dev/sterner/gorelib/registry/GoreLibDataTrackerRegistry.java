@@ -38,7 +38,7 @@ public interface GoreLibDataTrackerRegistry {
         }
     };
 
-    static void init(){
+    static void init() {
         TrackedDataHandlerRegistry.register(INVENTORY);
     }
 }

@@ -1,17 +1,14 @@
 package dev.sterner.gorelib.mixin;
 
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
-import dev.sterner.gorelib.event.LivingEntityDropEvent;
 import dev.sterner.gorelib.entity.EntityExtension;
+import dev.sterner.gorelib.event.LivingEntityDropEvent;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -29,7 +26,8 @@ public abstract class LivingEntityMixin implements EntityExtension {
     @Shadow
     protected int playerHitTimer;
 
-    @Shadow public abstract int getXpToDrop();
+    @Shadow
+    public abstract int getXpToDrop();
 
     @Unique
     private final ThreadLocal<Integer> dropLootingLevel = new ThreadLocal<>();
@@ -52,7 +50,7 @@ public abstract class LivingEntityMixin implements EntityExtension {
     }
 
     @WrapWithCondition(method = "dropXp", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/ExperienceOrbEntity;spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;I)V"))
-    private boolean gore_lib$dropXp(ServerWorld serverWorld, Vec3d vec3d, int xpToDrop){
+    private boolean gore_lib$dropXp(ServerWorld serverWorld, Vec3d vec3d, int xpToDrop) {
         return LivingEntityDropEvent.SHOULD_DROP_XP.invoker().shouldDrop(LivingEntity.class.cast(this), vec3d, xpToDrop);
     }
 }

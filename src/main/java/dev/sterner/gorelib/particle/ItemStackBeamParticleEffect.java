@@ -50,7 +50,7 @@ public class ItemStackBeamParticleEffect implements ParticleEffect {
     @Override
     public String asString() {
         Identifier var10000 = Registry.PARTICLE_TYPE.getId(this.getType());
-        return "" + var10000 + " " + (new ItemStackArgument(this.stack.getRegistryEntry(), this.stack.getNbt())).asString();
+        return var10000 + " " + (new ItemStackArgument(this.stack.getRegistryEntry(), this.stack.getNbt())).asString();
     }
 
     @Override

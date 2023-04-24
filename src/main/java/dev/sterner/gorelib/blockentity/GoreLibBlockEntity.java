@@ -73,7 +73,6 @@ public class GoreLibBlockEntity extends BlockEntity implements BlockEntityExtens
     }
 
 
-
     @Override
     public BlockEntityUpdateS2CPacket toUpdatePacket() {
         return BlockEntityUpdateS2CPacket.create(this);
