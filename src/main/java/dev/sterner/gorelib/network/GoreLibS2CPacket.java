@@ -23,7 +23,7 @@ public class GoreLibS2CPacket {
     private boolean writeFullEntityNbt;
     private Vec3d vec3d;
 
-    private GoreLibS2CPacket(){
+    public GoreLibS2CPacket(){
 
     }
 
@@ -50,7 +50,7 @@ public class GoreLibS2CPacket {
         ServerPlayNetworking.send(packet.player, id, buf);
     }
 
-    public static void handle(MinecraftClient client, ClientPlayNetworkHandler network, PacketByteBuf buf, PacketSender sender) {
+    public void handle(MinecraftClient client, ClientPlayNetworkHandler network, PacketByteBuf buf, PacketSender sender) {
         int entityId = 0;
         EntityType<?> entityType;
         BlockPos entityPos;
@@ -82,7 +82,7 @@ public class GoreLibS2CPacket {
         });
     }
 
-    public static void executeClient(int entityId, EntityType<?> entityType, BlockPos entityPos, NbtCompound nbtCompound, Vec3d vec3d, ClientPlayNetworkHandler network, PacketSender sender) {
+    public void executeClient(int entityId, EntityType<?> entityType, BlockPos entityPos, NbtCompound nbtCompound, Vec3d vec3d, ClientPlayNetworkHandler network, PacketSender sender) {
 
     }
 
