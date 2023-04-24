@@ -58,7 +58,7 @@ public class ItemUtils {
         }
     }
 
-    public static void saveInventory(NbtCompound compound, String name, DefaultedList<ItemStack> inv) {
+    public static void writeInventory(NbtCompound compound, String name, DefaultedList<ItemStack> inv) {
         NbtList tagList = new NbtList();
 
         for (int i = 0; i < inv.size(); ++i) {
@@ -73,11 +73,11 @@ public class ItemUtils {
         compound.put(name, tagList);
     }
 
-    public static void saveItemList(NbtCompound compound, String name, DefaultedList<ItemStack> list) {
-        saveItemList(compound, name, list, true);
+    public static void writeItemList(NbtCompound compound, String name, DefaultedList<ItemStack> list) {
+        writeItemList(compound, name, list, true);
     }
 
-    public static void saveItemList(NbtCompound compound, String name, DefaultedList<ItemStack> list, boolean includeEmpty) {
+    public static void writeItemList(NbtCompound compound, String name, DefaultedList<ItemStack> list, boolean includeEmpty) {
         NbtList itemList = new NbtList();
         Iterator<ItemStack> stackIterator = list.iterator();
 
