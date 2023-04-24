@@ -1,4 +1,4 @@
-package dev.sterner.gorelib.interfaces;
+package dev.sterner.gorelib.blockentity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.NbtCompound;

@@ -1,7 +1,7 @@
 package dev.sterner.gorelib.mixin;
 
-import dev.sterner.gorelib.interfaces.BlockEntityExtensions;
-import dev.sterner.gorelib.interfaces.INBTSerializableCompound;
+import dev.sterner.gorelib.blockentity.BlockEntityExtensions;
+import dev.sterner.gorelib.interfaces.INbtSerializableCompound;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BlockEntity.class)
-public abstract class BlockEntityMixin implements BlockEntityExtensions, INBTSerializableCompound {
+public abstract class BlockEntityMixin implements BlockEntityExtensions, INbtSerializableCompound {
 
     @Unique
     private NbtCompound lodestone$extraData = null;

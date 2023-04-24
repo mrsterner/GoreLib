@@ -1,7 +1,7 @@
 package dev.sterner.gorelib.mixin;
 
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
-import dev.sterner.gorelib.interfaces.EntityExtension;
+import dev.sterner.gorelib.entity.EntityExtension;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.world.World;

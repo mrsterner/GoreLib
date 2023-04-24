@@ -1,4 +1,4 @@
-package dev.sterner.gorelib.interfaces;
+package dev.sterner.gorelib.entity;
 
 import net.minecraft.entity.ItemEntity;
 

@@ -1,6 +1,5 @@
 package dev.sterner.gorelib.blockentity;
 
-import dev.sterner.gorelib.interfaces.BlockEntityExtensions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
