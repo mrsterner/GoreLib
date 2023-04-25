@@ -3,6 +3,7 @@ package dev.sterner.gorelib.mixin;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import dev.sterner.gorelib.entity.EntityExtension;
 import dev.sterner.gorelib.event.LivingEntityDropEvent;
+import dev.sterner.gorelib.event.LivingEntityVisibilityEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -15,6 +16,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.ArrayList;
@@ -52,5 +54,10 @@ public abstract class LivingEntityMixin implements EntityExtension {
     @WrapWithCondition(method = "dropXp", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/ExperienceOrbEntity;spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;I)V"))
     private boolean gore_lib$dropXp(ServerWorld serverWorld, Vec3d vec3d, int xpToDrop) {
         return LivingEntityDropEvent.SHOULD_DROP_XP.invoker().shouldDrop(LivingEntity.class.cast(this), vec3d, xpToDrop);
+    }
+
+    @Inject(method = "getAttackDistanceScalingFactor", at = @At("RETURN"), cancellable = true)
+    private void gore_lib$f(Entity entity, CallbackInfoReturnable<Double> cir){
+        cir.setReturnValue(LivingEntityVisibilityEvent.MODIFY_MULTIPLIER.invoker().modify(LivingEntity.class.cast(this), entity, cir.getReturnValue()));
     }
 }

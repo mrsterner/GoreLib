@@ -25,10 +25,12 @@ public class LivingEntityDropEvent {
         return true;
     });
 
+    @FunctionalInterface
     public interface OnLivingDrops {
         boolean shouldDrop(LivingEntity livingEntity, DamageSource damageSource, Collection<ItemEntity> drops, int lootingLevel, boolean recentlyHit);
     }
 
+    @FunctionalInterface
     public interface OnLivingDropsXp {
         boolean shouldDrop(LivingEntity livingEntity, Vec3d vec3d, int xpToDrop);
     }
