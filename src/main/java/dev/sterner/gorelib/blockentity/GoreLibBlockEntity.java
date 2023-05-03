@@ -17,7 +17,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class GoreLibBlockEntity extends BlockEntity implements BlockEntityExtensions {
+public class GoreLibBlockEntity extends BlockEntity  {
     public boolean needsSync;
 
     public GoreLibBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -25,7 +25,7 @@ public class GoreLibBlockEntity extends BlockEntity implements BlockEntityExtens
     }
 
     public void onBreak(@Nullable PlayerEntity player) {
-        invalidateCaps();
+
     }
 
     public void onPlace(LivingEntity placer, ItemStack stack) {

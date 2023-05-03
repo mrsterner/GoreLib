@@ -16,9 +16,9 @@ repositories {
 		url = "https://api.modrinth.com/maven"
 	}
 	maven {
-		name = "Jitpack, MixinExtras"
 		url = "https://jitpack.io"
 	}
+	maven { url = "https://mvn.devos.one/snapshots/" }
 }
 
 loom {
