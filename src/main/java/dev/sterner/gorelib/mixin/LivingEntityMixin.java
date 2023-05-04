@@ -45,7 +45,9 @@ public abstract class LivingEntityMixin implements EntityExtension {
         boolean bl = this.playerHitTimer > 0;
         Collection<ItemEntity> drops = captureDrops(null);
         if (LivingEntityDropEvent.SHOULD_DROP_ON_DEATH.invoker().shouldDrop(LivingEntity.class.cast(this), source, drops, dropLootingLevel.get(), bl)) {
-            drops.forEach(e -> e.getWorld().spawnEntity(e));
+            if(drops != null){
+                drops.forEach(e -> e.getWorld().spawnEntity(e));
+            }
         }
 
         dropLootingLevel.remove();
