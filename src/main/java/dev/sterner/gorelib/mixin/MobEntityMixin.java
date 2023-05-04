@@ -18,7 +18,7 @@ public class MobEntityMixin {
     private LivingEntity target;
 
     @Inject(method = "setTarget", at = @At("HEAD"))
-    private void gore_lib$setTarget(LivingEntity target, CallbackInfo ci) {
+    private void gorelib$setTarget(LivingEntity target, CallbackInfo ci) {
         MobEntity mobEntity = MobEntity.class.cast(this);
         LivingEntity newTarget = LivingEntityTargetingEvent.CHANGE_TARGET.invoker().onChangeTarget(mobEntity, target);
         this.target = newTarget;

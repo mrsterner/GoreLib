@@ -1,5 +1,6 @@
 package dev.sterner.gorelib.blockentity;
 
+import dev.sterner.gorelib.block.GoreLibBlockWithEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -12,9 +13,11 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class GoreLibBlockEntity extends BlockEntity  {
@@ -24,27 +27,56 @@ public class GoreLibBlockEntity extends BlockEntity  {
         super(type, pos, state);
     }
 
+    /**
+     * Triggered from:
+     * {@link GoreLibBlockWithEntity#onBreak(World, BlockPos, BlockState, PlayerEntity)}
+     *
+     * @param player
+     */
     public void onBreak(@Nullable PlayerEntity player) {
 
     }
 
-    public void onPlace(LivingEntity placer, ItemStack stack) {
+    /**
+     * Triggered from:
+     * {@link GoreLibBlockWithEntity#onPlaced(World, BlockPos, BlockState, LivingEntity, ItemStack)}
+     */
+    public void onPlaced(@NotNull World world, @NotNull BlockPos pos, @NotNull BlockState state, LivingEntity placer, ItemStack stack) {
     }
 
-    public void onNeighborUpdate(BlockState state, BlockPos pos, BlockPos neighbor) {
+    /**
+     * Triggered from:
+     * {@link GoreLibBlockWithEntity#neighborUpdate(BlockState, World, BlockPos, Block, BlockPos, boolean)}
+     */
+    public void neighborUpdate(@NotNull World world, BlockState state, BlockPos pos, BlockPos neighbor) {
     }
 
-    public ItemStack onClone(BlockState state, BlockView blockView, BlockPos pos) {
+    /**
+     * Triggered from:
+     * {@link GoreLibBlockWithEntity#getPickStack(BlockView, BlockPos, BlockState)} )}
+     */
+    public ItemStack getPickStack(BlockState state, BlockView blockView, BlockPos pos) {
         return ItemStack.EMPTY;
     }
 
+    /**
+     * Triggered from:
+     * {@link GoreLibBlockWithEntity#onUse(BlockState, World, BlockPos, PlayerEntity, Hand, BlockHitResult)}
+     */
     public ActionResult onUse(PlayerEntity player, Hand hand) {
         return ActionResult.PASS;
     }
 
-    public void onEntityInside(BlockState state, World world, BlockPos pos, Entity entity) {
+    /**
+     * Triggered from:
+     * {@link GoreLibBlockWithEntity#onEntityCollision(BlockState, World, BlockPos, Entity)} (BlockState, World, BlockPos, PlayerEntity, Hand, BlockHitResult)}
+     */
+    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 
     }
+
+
+    //Save nbt
 
     @Override
     public NbtCompound toInitialChunkDataNbt() {
@@ -103,7 +135,7 @@ public class GoreLibBlockEntity extends BlockEntity  {
     }
 
     /**
-     * Called on both sides to force an udpate after reload
+     * Called on both sides to force an update after reload
      */
     public void init() {
 

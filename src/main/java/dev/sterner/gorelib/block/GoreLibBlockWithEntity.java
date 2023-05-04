@@ -22,7 +22,11 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-
+/**
+ * This is a Block with an BlockEntity with a few helper functions to make ticking block entities and other methods run on the BlockEntity instead of the Block
+ *
+ * @param <T>
+ */
 public class GoreLibBlockWithEntity<T extends GoreLibBlockEntity> extends BlockWithEntity {
     protected BlockEntityType<T> blockEntityType = null;
     protected BlockEntityTicker<T> ticker = null;
@@ -59,34 +63,34 @@ public class GoreLibBlockWithEntity<T extends GoreLibBlockEntity> extends BlockW
 
     @Override
     public BlockEntity createBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        return hasTileEntity(state) ? blockEntityType.instantiate(pos, state) : null;
+        return hasBlockEntity(state) ? blockEntityType.instantiate(pos, state) : null;
     }
 
-    public boolean hasTileEntity(BlockState state) {
+    public boolean hasBlockEntity(BlockState state) {
         return this.blockEntityType != null;
     }
 
     @Override
     @Nullable
-    public <B extends BlockEntity> BlockEntityTicker<B> getTicker(@NotNull World level, @NotNull BlockState state, @NotNull BlockEntityType<B> type) {
+    public <B extends BlockEntity> BlockEntityTicker<B> getTicker(@NotNull World world, @NotNull BlockState state, @NotNull BlockEntityType<B> type) {
         return (BlockEntityTicker<B>) ticker;
     }
 
     @Override
-    public void onPlaced(@NotNull World pLevel, @NotNull BlockPos pPos, @NotNull BlockState pState, @Nullable LivingEntity pPlacer, @NotNull ItemStack pStack) {
-        if (hasTileEntity(pState)) {
-            if (pLevel.getBlockEntity(pPos) instanceof GoreLibBlockEntity simpleBlockEntity) {
-                simpleBlockEntity.onPlace(pPlacer, pStack);
+    public void onPlaced(@NotNull World world, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity livingEntity, @NotNull ItemStack itemStack) {
+        if (hasBlockEntity(state)) {
+            if (world.getBlockEntity(pos) instanceof GoreLibBlockEntity simpleBlockEntity) {
+                simpleBlockEntity.onPlaced(world, pos, state, livingEntity, itemStack);
             }
         }
-        super.onPlaced(pLevel, pPos, pState, pPlacer, pStack);
+        super.onPlaced(world, pos, state, livingEntity, itemStack);
     }
 
     @Override
     public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-        if (hasTileEntity(state)) {
+        if (hasBlockEntity(state)) {
             if (world.getBlockEntity(pos) instanceof GoreLibBlockEntity simpleBlockEntity) {
-                ItemStack stack = simpleBlockEntity.onClone(state, world, pos);
+                ItemStack stack = simpleBlockEntity.getPickStack(state, world, pos);
                 if (!stack.isEmpty()) {
                     return stack;
                 }
@@ -96,44 +100,44 @@ public class GoreLibBlockWithEntity<T extends GoreLibBlockEntity> extends BlockW
     }
 
     @Override
-    public void onBreak(@NotNull World level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull PlayerEntity player) {
-        onBlockBroken(state, level, pos, player);
-        super.onBreak(level, pos, state, player);
+    public void onBreak(@NotNull World world, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull PlayerEntity player) {
+        onBlockBroken(state, world, pos, player);
+        super.onBreak(world, pos, state, player);
     }
 
-    public void onBlockBroken(BlockState state, BlockView level, BlockPos pos, @Nullable PlayerEntity player) {
-        if (hasTileEntity(state)) {
-            if (level.getBlockEntity(pos) instanceof GoreLibBlockEntity simpleBlockEntity) {
+    public void onBlockBroken(BlockState state, BlockView world, BlockPos pos, @Nullable PlayerEntity player) {
+        if (hasBlockEntity(state)) {
+            if (world.getBlockEntity(pos) instanceof GoreLibBlockEntity simpleBlockEntity) {
                 simpleBlockEntity.onBreak(player);
             }
         }
     }
 
     @Override
-    public void onEntityCollision(@NotNull BlockState pState, @NotNull World pLevel, @NotNull BlockPos pPos, @NotNull Entity pEntity) {
-        if (hasTileEntity(pState)) {
-            if (pLevel.getBlockEntity(pPos) instanceof GoreLibBlockEntity simpleBlockEntity) {
-                simpleBlockEntity.onEntityInside(pState, pLevel, pPos, pEntity);
+    public void onEntityCollision(@NotNull BlockState state, @NotNull World world, @NotNull BlockPos pos, @NotNull Entity entity) {
+        if (hasBlockEntity(state)) {
+            if (world.getBlockEntity(pos) instanceof GoreLibBlockEntity simpleBlockEntity) {
+                simpleBlockEntity.onEntityCollision(state, world, pos, entity);
             }
         }
-        super.onEntityCollision(pState, pLevel, pPos, pEntity);
+        super.onEntityCollision(state, world, pos, entity);
     }
 
     @Override
-    public void neighborUpdate(@NotNull BlockState pState, @NotNull World pLevel, @NotNull BlockPos pPos, @NotNull Block pBlock, @NotNull BlockPos pFromPos, boolean pIsMoving) {
-        if (hasTileEntity(pState)) {
-            if (pLevel.getBlockEntity(pPos) instanceof GoreLibBlockEntity simpleBlockEntity) {
-                simpleBlockEntity.onNeighborUpdate(pState, pPos, pFromPos);
+    public void neighborUpdate(@NotNull BlockState state, @NotNull World world, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos neighbourPos, boolean isMoving) {
+        if (hasBlockEntity(state)) {
+            if (world.getBlockEntity(pos) instanceof GoreLibBlockEntity simpleBlockEntity) {
+                simpleBlockEntity.neighborUpdate(world, state, pos, neighbourPos);
             }
         }
-        super.neighborUpdate(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
+        super.neighborUpdate(state, world, pos, block, neighbourPos, isMoving);
     }
 
 
     @NotNull
     @Override
     public ActionResult onUse(@NotNull BlockState state, @NotNull World level, @NotNull BlockPos pos, @NotNull PlayerEntity player, @NotNull Hand hand, @NotNull BlockHitResult ray) {
-        if (hasTileEntity(state)) {
+        if (hasBlockEntity(state)) {
             if (level.getBlockEntity(pos) instanceof GoreLibBlockEntity simpleBlockEntity) {
                 return simpleBlockEntity.onUse(player, hand);
             }

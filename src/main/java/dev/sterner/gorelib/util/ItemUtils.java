@@ -9,6 +9,13 @@ import java.util.Iterator;
 
 public class ItemUtils {
 
+    /**
+     *  Populates an inventory DefaultedList<ItemStack> from a nbt
+     *
+     * @param compound nbt to read inventory from
+     * @param name name of the inventory in the nbt
+     * @param inv inventory to populate with items from nbt
+     */
     public static void readInventory(NbtCompound compound, String name, DefaultedList<ItemStack> inv) {
         if (compound.contains(name)) {
             NbtList tagList = compound.getList(name, 10);
@@ -28,6 +35,14 @@ public class ItemUtils {
         return readItemList(compound, name, true);
     }
 
+    /**
+     * Populates a DefaultedList<ItemStack> from a nbt
+     *
+     * @param compound nbt to read items from
+     * @param name name of the items' nbt
+     * @param includeEmpty if it should include ItemStack.EMPTY
+     * @return List of ItemStacks from the nbt
+     */
     public static DefaultedList<ItemStack> readItemList(NbtCompound compound, String name, boolean includeEmpty) {
         DefaultedList<ItemStack> items = DefaultedList.of();
         if (!compound.contains(name)) {
@@ -58,6 +73,13 @@ public class ItemUtils {
         }
     }
 
+    /**
+     * Writes into a nbt from an inventory DefaultedList<ItemStack>
+     *
+     * @param compound nbt to write to
+     * @param name name of the inventories' nbt
+     * @param inv input inventory
+     */
     public static void writeInventory(NbtCompound compound, String name, DefaultedList<ItemStack> inv) {
         NbtList tagList = new NbtList();
 

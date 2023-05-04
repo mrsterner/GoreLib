@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class UpdateAttackTargetTaskMixin {
 
     @Inject(method = "updateAttackTarget", at = @At("TAIL"))
-    private static <E extends MobEntity> void gore_lib$updateAttackTarget(E mob, LivingEntity livingEntity, CallbackInfo ci) {
+    private static <E extends MobEntity> void gorelib$updateAttackTarget(E mob, LivingEntity livingEntity, CallbackInfo ci) {
         LivingEntity newTarget = LivingEntityTargetingEvent.CHANGE_TARGET.invoker().onChangeTarget(mob, livingEntity);
         mob.getBrain().remember(MemoryModuleType.ATTACK_TARGET, newTarget);
         mob.getBrain().forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);

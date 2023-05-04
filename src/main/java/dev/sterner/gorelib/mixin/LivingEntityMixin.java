@@ -28,20 +28,17 @@ public abstract class LivingEntityMixin implements EntityExtension {
     @Shadow
     protected int playerHitTimer;
 
-    @Shadow
-    public abstract int getXpToDrop();
-
     @Unique
     private final ThreadLocal<Integer> dropLootingLevel = new ThreadLocal<>();
 
     @Inject(method = "drop", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/LivingEntity;playerHitTimer : I"), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void gore_lib$dropPre(DamageSource source, CallbackInfo ci, Entity entity, int lootingLevel) {
+    private void gorelib$dropPre(DamageSource source, CallbackInfo ci, Entity entity, int lootingLevel) {
         this.captureDrops(new ArrayList<>());
         dropLootingLevel.set(lootingLevel);
     }
 
     @Inject(method = "drop", at = @At("TAIL"))
-    private void gore_lib$dropPost(DamageSource source, CallbackInfo ci) {
+    private void gorelib$dropPost(DamageSource source, CallbackInfo ci) {
         boolean bl = this.playerHitTimer > 0;
         Collection<ItemEntity> drops = captureDrops(null);
         if (LivingEntityDropEvent.SHOULD_DROP_ON_DEATH.invoker().shouldDrop(LivingEntity.class.cast(this), source, drops, dropLootingLevel.get(), bl)) {
@@ -54,12 +51,12 @@ public abstract class LivingEntityMixin implements EntityExtension {
     }
 
     @WrapWithCondition(method = "dropXp", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/ExperienceOrbEntity;spawn(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/Vec3d;I)V"))
-    private boolean gore_lib$dropXp(ServerWorld serverWorld, Vec3d vec3d, int xpToDrop) {
+    private boolean gorelib$dropXp(ServerWorld serverWorld, Vec3d vec3d, int xpToDrop) {
         return LivingEntityDropEvent.SHOULD_DROP_XP.invoker().shouldDrop(LivingEntity.class.cast(this), vec3d, xpToDrop);
     }
 
     @Inject(method = "getAttackDistanceScalingFactor", at = @At("RETURN"), cancellable = true)
-    private void gore_lib$f(Entity entity, CallbackInfoReturnable<Double> cir){
+    private void gorelib$f(Entity entity, CallbackInfoReturnable<Double> cir){
         cir.setReturnValue(LivingEntityVisibilityEvent.MODIFY_MULTIPLIER.invoker().modify(LivingEntity.class.cast(this), entity, cir.getReturnValue()));
     }
 }

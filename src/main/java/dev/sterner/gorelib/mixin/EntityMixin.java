@@ -22,7 +22,7 @@ public class EntityMixin implements EntityExtension {
     private Collection<ItemEntity> captureDrops = null;
 
     @WrapWithCondition(method = "dropStack(Lnet/minecraft/item/ItemStack;F)Lnet/minecraft/entity/ItemEntity;", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"))
-    private boolean gore_lib$dropStack(World instance, Entity entity) {
+    private boolean gorelib$dropStack(World instance, Entity entity) {
         if (captureDrops() != null && entity instanceof ItemEntity itemEntity) {
             captureDrops().add(itemEntity);
             return false;

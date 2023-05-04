@@ -15,6 +15,9 @@ import java.awt.*;
 public class RenderUtils {
     public static final int FULL_BRIGHT = 15728880;
 
+    /**
+     * To allow textures to draw at float x and y
+     */
     public static void drawTexture(MatrixStack matrices, float x, float y, int width, int height, float u, float v, int regionWidth, int regionHeight, int textureWidth, int textureHeight) {
         drawTexturedQuad(matrices, x, x + width, y, y + height, 0, regionWidth, regionHeight, u, v, textureWidth, textureHeight);
     }
@@ -54,6 +57,9 @@ public class RenderUtils {
         renderBlockAtPosition(context.matrixStack(), context.camera(), pos, texture, alpha);
     }
 
+    /**
+     * Renders a Block at a pos
+     */
     public static void renderBlockAtPosition(MatrixStack matrixStack, Camera camera, Vec3d pos, Identifier texture, float alpha) {
         matrixStack.push();
         Vec3d transformedPos = pos.subtract(camera.getPos());

@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class ServerPlayerMixin implements EntityExtension {
 
     @WrapWithCondition(method = "dropItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"))
-    private boolean gore_lib$dropItem(World instance, Entity entity) {
+    private boolean gorelib$dropItem(World instance, Entity entity) {
         if (captureDrops() != null && entity instanceof ItemEntity itemEntity) {
             captureDrops().add(itemEntity);
             return false;
