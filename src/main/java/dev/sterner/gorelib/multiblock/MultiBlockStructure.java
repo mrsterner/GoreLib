@@ -45,7 +45,7 @@ public class MultiBlockStructure {
             BlockPos pos = context.getBlockPos().add(offset);
             BlockState existingState = world.getBlockState(pos);
             ShapeContext collisioncontext = player == null ? ShapeContext.absent() : ShapeContext.of(player);
-            return existingState.getMaterial().isReplaceable() && world.canPlace(state, pos, collisioncontext);
+            return existingState.isReplaceable() && world.canPlace(state, pos, collisioncontext);
         }
 
         public void place(BlockPos core, World world) {

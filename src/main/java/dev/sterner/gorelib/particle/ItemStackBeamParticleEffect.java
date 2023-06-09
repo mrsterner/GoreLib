@@ -2,21 +2,20 @@ package dev.sterner.gorelib.particle;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.command.CommandRegistryWrapper;
 import net.minecraft.command.argument.ItemStackArgument;
 import net.minecraft.command.argument.ItemStringReader;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleType;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class ItemStackBeamParticleEffect implements ParticleEffect {
     public static final ParticleEffect.Factory<ItemStackBeamParticleEffect> PARAMETERS_FACTORY = new ParticleEffect.Factory<>() {
         public ItemStackBeamParticleEffect read(ParticleType<ItemStackBeamParticleEffect> particleType, StringReader stringReader) throws CommandSyntaxException {
             stringReader.expect(' ');
-            ItemStringReader.ItemResult itemResult = ItemStringReader.item(CommandRegistryWrapper.of(Registry.ITEM), stringReader);
+            ItemStringReader.ItemResult itemResult = ItemStringReader.item(Registries.ITEM.getReadOnlyWrapper(), stringReader);
             ItemStack itemStack = new ItemStackArgument(itemResult.item(), itemResult.nbt()).createStack(1, false);
             stringReader.expect(' ');
             int maxAge = stringReader.readInt();
@@ -49,7 +48,7 @@ public class ItemStackBeamParticleEffect implements ParticleEffect {
 
     @Override
     public String asString() {
-        Identifier var10000 = Registry.PARTICLE_TYPE.getId(this.getType());
+        Identifier var10000 = Registries.PARTICLE_TYPE.getId(this.getType());
         return var10000 + " " + (new ItemStackArgument(this.stack.getRegistryEntry(), this.stack.getNbt())).asString();
     }
 

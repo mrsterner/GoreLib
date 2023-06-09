@@ -4,6 +4,8 @@ import dev.sterner.gorelib.block.GoreLibBlockWithEntity;
 import dev.sterner.gorelib.blockentity.GoreLibBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
+import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 

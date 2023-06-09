@@ -7,8 +7,8 @@ import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
+import org.joml.Matrix4f;
 
 import java.awt.*;
 
@@ -31,14 +31,14 @@ public class RenderUtils {
     }
 
     private static void drawTexturedQuad(Matrix4f matrix, float x0, float x1, float y0, float y1, int z, float u0, float u1, float v0, float v1) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
         bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
         bufferBuilder.vertex(matrix, x0, y0, (float) z).texture(u0, v0).next();
         bufferBuilder.vertex(matrix, x0, y1, (float) z).texture(u0, v1).next();
         bufferBuilder.vertex(matrix, x1, y1, (float) z).texture(u1, v1).next();
         bufferBuilder.vertex(matrix, x1, y0, (float) z).texture(u1, v0).next();
-        BufferRenderer.drawWithShader(bufferBuilder.end());
+        BufferRenderer.draw(bufferBuilder.end());
     }
 
     public static void renderTexture(MatrixStack matrices, Identifier texture, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
@@ -88,7 +88,7 @@ public class RenderUtils {
             buffer.vertex(positionMatrix, x2, y1, z1).color(intColor).texture(1, 1).next();
         }
 
-        RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionColorTexProgram);
         RenderSystem.setShaderTexture(0, texture);
         tessellator.draw();
 
